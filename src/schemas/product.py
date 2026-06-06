@@ -1,13 +1,15 @@
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional, List, Any
-from uuid import UUID
+from uuid import UUID, uuid4
 from datetime import datetime
 
 class ImageSchema(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
     url: str
     ordering: int
 
 class CharacteristicSchema(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
     name: str
     value: str
 
@@ -31,17 +33,17 @@ class ProductResponse(BaseModel):
     seller_id: UUID
     category_id: UUID
     title: str
-    slug: Optional[str] = None
+    slug: str
     description: str
     status: str
     deleted: bool
     blocked: bool
-    blocking_reason_id: Optional[UUID] = None
-    moderator_comment: Optional[str] = None
+    blocking_reason_id: UUID
+    moderator_comment: str
     images: List[ImageSchema]
     characteristics: List[CharacteristicSchema]
     skus: List[Any]
     created_at: datetime
-    updated_at: Optional[datetime] = None
+    updated_at: datetime
     
     model_config = {"from_attributes": True}

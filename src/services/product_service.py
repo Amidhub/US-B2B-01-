@@ -19,8 +19,9 @@ class ProductService:
             status="CREATED",
             deleted=False,
             blocked=False,
-            images=[img.dict() for img in product_data.images],
-            characteristics=[char.dict() for char in product_data.characteristics],
+            moderator_comment="",
+            images=[img.model_dump() for img in product_data.images],
+            characteristics=[char.model_dump() for char in product_data.characteristics] if product_data.characteristics else [],
             skus=[]
         )
         
